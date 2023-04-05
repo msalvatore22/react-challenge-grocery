@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  display: flex;
+  justify-content: center;
 }
 
 .App-logo {
@@ -36,3 +38,28 @@
     transform: rotate(360deg);
   }
 }
+
+.grocery-line {
+  margin-top: 20%;
+  margin-right: 5px;
+  border: 1px solid rgb(73, 69, 69);
+  border-radius: 3px;
+  padding: 10px;
+  width: 30px;
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.shopper {
+  border: 1px solid rgb(9, 170, 68);
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 2px;
+}
+
+
