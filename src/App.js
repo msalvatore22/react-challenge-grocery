@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Shopper = (props) => {
   const {items} = props
@@ -11,20 +11,51 @@ const Shopper = (props) => {
 
 function App() {
   const [groceryLine, setGroceryLine] = useState([
+    [8],
+    [10, 12],
+    [14, 24, 34],
     [],
-    [10, 2],
-    [4, 12],
-    [],
-    [8, 9, 2],
-    [4]
+    [20, 30, 40],
+    [50, 18]
   ])
 
   const [checkoutValue, setCheckoutValue] = useState(0)
 
+  const decrement = (arr) => {
+    arr.forEach(subArr => {
+      if(subArr.length > 0){
+        subArr[0] --
+      }
+      if(subArr[0] === 0){
+        subArr.shift()
+      }
+    });
+    
+  }
+
+  useEffect(() => {
+    let copy = [...groceryLine]
+    const d = setInterval(() => {
+      copy.forEach(subArr => {
+        if(subArr.length > 0){
+          subArr[0] --
+        }
+        if(subArr[0] === 0){
+          subArr.shift()
+        }
+      });
+      setGroceryLine([...copy])
+    }, 2000)
+    return () => {
+      clearInterval(d)
+    }
+  }, [])
+
+
   const handleCheckout = () => {
     let currentSum = groceryLine[0].reduce((a, b) => a + b, 0);
     let lineIndex = 0;
-    
+
     for(let i = 0; i < groceryLine.length; i++){
       if(groceryLine[i].length === 0){
         lineIndex = i
@@ -56,11 +87,11 @@ function App() {
         <p>{checkoutValue}</p>
       </div>
       <div className="grocery-store">
-      {groceryLine.map((que, idx) => {
+      {groceryLine?.map((que, idx) => {
         return (
-          <div className="grocery-line">
-            {que.map((items, i) => {
-              return <Shopper items={items} />
+          <div key={idx} className="grocery-line">
+            {que?.map((items, i) => {
+              return <Shopper key={i} items={items} />
             })}
           </div>
         )
