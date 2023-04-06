@@ -22,9 +22,9 @@ function App() {
   const [checkoutValue, setCheckoutValue] = useState(0)
 
   const handleCheckout = () => {
-    let currentSum = groceryLine[0];
+    let currentSum = groceryLine[0].reduce((a, b) => a + b, 0);
     let lineIndex = 0;
-    console.log(currentSum)
+    
     for(let i = 0; i < groceryLine.length; i++){
       if(groceryLine[i].length === 0){
         lineIndex = i
