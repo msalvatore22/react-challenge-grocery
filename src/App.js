@@ -25,7 +25,7 @@ function App() {
     let copy = [...groceryLine]
     const d = setInterval(() => {
       copy.forEach(subArr => {
-        if(subArr.length > 0){
+        if(subArr.length > 0 && subArr[0] > 0){
           subArr[0] --
         }
         if(subArr[0] === 0){
@@ -60,24 +60,32 @@ function App() {
     let newGroceryLine = [...groceryLine]
     newGroceryLine[lineIndex].push(checkoutValue)
     setGroceryLine([...newGroceryLine])
-    
+  }
+
+  const handleEnterKey = (e) => {
+    if(e.key === 'Enter'){
+      handleCheckout()
+    }
   }
 
   return (
     <div className="App">
       <div className="checkout">
         <input
+          className='checkout-input'
+          required
           value={checkoutValue}
           type="number"
-          onChange={e => setCheckoutValue(parseInt(e.currentTarget.value) ? parseInt(e.currentTarget.value) : "")}
+          onChange={e => setCheckoutValue(e.currentTarget.valueAsNumber)}
+          onKeyDown={e => handleEnterKey(e)}
         ></input>
-        <button onClick={() => handleCheckout()}>Checkout</button>
-        <p>{checkoutValue}</p>
+        <button className="checkout-btn" onClick={() => handleCheckout()}>Checkout</button>
       </div>
       <div className="grocery-store">
       {groceryLine?.map((que, idx) => {
         return (
           <div key={idx} className="grocery-line">
+            <div className="register">$</div>
             {que?.map((items, i) => {
               return <Shopper key={i} items={items} />
             })}
