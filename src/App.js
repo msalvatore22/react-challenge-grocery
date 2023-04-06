@@ -8,7 +8,6 @@ const Shopper = (props) => {
   )
 }
 
-
 function App() {
   const [groceryLine, setGroceryLine] = useState([
     [8],
@@ -39,8 +38,12 @@ function App() {
     }
   }, [])
 
-
   const handleCheckout = () => {
+    if(checkoutValue < 0){
+      setCheckoutValue(0)
+      return
+    }
+
     let currentSum = groceryLine[0].reduce((a, b) => a + b, 0);
     let lineIndex = 0;
 
@@ -60,6 +63,7 @@ function App() {
     let newGroceryLine = [...groceryLine]
     newGroceryLine[lineIndex].push(checkoutValue)
     setGroceryLine([...newGroceryLine])
+    setCheckoutValue(0)
   }
 
   const handleEnterKey = (e) => {
@@ -93,7 +97,6 @@ function App() {
         )
       })}
       </div>
-      
     </div>
   );
 }
