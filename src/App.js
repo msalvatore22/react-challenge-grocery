@@ -21,18 +21,6 @@ function App() {
 
   const [checkoutValue, setCheckoutValue] = useState(0)
 
-  const decrement = (arr) => {
-    arr.forEach(subArr => {
-      if(subArr.length > 0){
-        subArr[0] --
-      }
-      if(subArr[0] === 0){
-        subArr.shift()
-      }
-    });
-    
-  }
-
   useEffect(() => {
     let copy = [...groceryLine]
     const d = setInterval(() => {
